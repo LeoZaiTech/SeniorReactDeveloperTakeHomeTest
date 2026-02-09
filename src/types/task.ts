@@ -11,3 +11,5 @@ export interface Task {
 }
 
 export type FilterStatus = 'all' | TaskStatus;
+
+export type FilterPriority = 'all' | TaskPriority;
