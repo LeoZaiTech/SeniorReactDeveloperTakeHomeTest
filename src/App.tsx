@@ -1,31 +1,14 @@
-// ============================================
-// IMPORTS
-// ============================================
 import React, { useState } from 'react';
-// ThemeProvider: Wraps app to provide theme context
-// useTheme: Hook to access theme state and colors
 import { ThemeProvider, useTheme } from './context/ThemeContext';
-// TaskList: Main component that displays filtered tasks
-// TaskForm: Form component for adding new tasks (added for Add Task functionality)
 import { TaskList, TaskForm } from './components';
-// Sample data for demonstration
+//Added for AddTask funcionality
 import { sampleTasks } from './data/sampleTasks';
-// Task type for state typing
 import { Task } from './types/task';
-// Global app styles
 import './App.css';
 
-// ============================================
-// APP CONTENT COMPONENT
-// ============================================
-// PURPOSE: Inner component that can access ThemeContext
-// WHY SEPARATE? useTheme() must be called INSIDE ThemeProvider
-// If we called useTheme in App directly, there'd be no provider above it
+// App Content Component
+
 const AppContent: React.FC = () => {
-  // Destructure everything we need from theme context
-  // - theme: current mode ('light' or 'dark')
-  // - toggleTheme: function to switch modes
-  // - colors: object with all color values for current theme
   const { theme, toggleTheme, colors } = useTheme();
 
   // Lifted state for tasks (added for delete functionality)
@@ -47,16 +30,7 @@ const AppContent: React.FC = () => {
     ]);
   };
 
-  // ----------------------------------------
-  // RENDER: App layout structure
-  // ----------------------------------------
-  //   RENDER root div with theme background
-  //     RENDER header with:
-  //       - Title and subtitle
-  //       - Theme toggle button
-  //     RENDER main content:
-  //       - TaskList with sample data
-  //     RENDER footer
+
   return (
     <div 
       className="app" 

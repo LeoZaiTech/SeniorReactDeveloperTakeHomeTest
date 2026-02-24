@@ -8,10 +8,11 @@ interface TaskFormProps {
   onAddTask: (task: Omit<Task, 'id'>) => void;
 }
 
+//Component State
+
 export const TaskForm: React.FC<TaskFormProps> = ({ onAddTask }) => {
   const { colors } = useTheme();
   
-  // Form state
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
   const [status, setStatus] = useState<TaskStatus>('todo');
@@ -53,6 +54,7 @@ export const TaskForm: React.FC<TaskFormProps> = ({ onAddTask }) => {
         style={{ backgroundColor: colors.background, color: colors.text, borderColor: colors.border }}
       />
       
+      {/* Select Dropdown */}
       <div className="form-row">
         <select
           value={status}

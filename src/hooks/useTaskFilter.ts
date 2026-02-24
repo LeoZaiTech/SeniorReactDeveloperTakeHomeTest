@@ -49,15 +49,15 @@ export const useTaskFilter = (tasks: Task[]): UseTaskFilterResult => {
   //   RETURN filtered array
   const filteredTasks = useMemo(() => {
     return tasks.filter((task) => {
-      // Check 1: Does task match status filter? ('all' matches everything)
+
       const matchesStatus = filterStatus === 'all' || task.status === filterStatus;
-      // Check 2: Does task match priority filter? ('all' matches everything)
       const matchesPriority = filterPriority === 'all' || task.priority === filterPriority;
-      // Check 3: Does task title match search query? (added for search feature)
       const matchesSearch = searchQuery === '' || 
         task.title.toLowerCase().includes(searchQuery.toLowerCase());
-     // Check 4: Added to implement search feature   
-      // Task must pass ALL checks to be included
+     // Const matchesSearch Added to implement search feature  
+     // //Empty query matches all; otherwise case-insensitive title match
+       
+    
       return matchesStatus && matchesPriority && matchesSearch;
     });
   }, [tasks, filterStatus, filterPriority, searchQuery]);  // Added searchQuery to deps
@@ -79,13 +79,13 @@ export const useTaskFilter = (tasks: Task[]): UseTaskFilterResult => {
   // Return exposes everything the component needs
  
   return {
-    filteredTasks,                              // The filtered task array
-    filterStatus,                               // Current status selection
-    setFilterStatus: handleSetFilterStatus,     // Handler to change status
-    statusOptions,                              // Options for status buttons
-    filterPriority,                             // Current priority selection
-    setFilterPriority: handleSetFilterPriority, // Handler to change priority
-    priorityOptions,                            // Options for priority buttons
+    filteredTasks,                              
+    filterStatus,                               
+    setFilterStatus: handleSetFilterStatus,     
+    statusOptions,                              
+    filterPriority,                             
+    setFilterPriority: handleSetFilterPriority, 
+    priorityOptions,                            
     searchQuery,                                // Current search query (added for search feature)
     setSearchQuery,                             // Handler to change search query
   };
