@@ -1,7 +1,7 @@
 // ============================================
 // IMPORTS
 // ============================================
-import React from 'react';
+import React, { useState } from 'react';
 // ThemeProvider: Wraps app to provide theme context
 // useTheme: Hook to access theme state and colors
 import { ThemeProvider, useTheme } from './context/ThemeContext';
@@ -9,6 +9,8 @@ import { ThemeProvider, useTheme } from './context/ThemeContext';
 import { TaskList } from './components';
 // Sample data for demonstration
 import { sampleTasks } from './data/sampleTasks';
+// Task type for state typing
+import { Task } from './types/task';
 // Global app styles
 import './App.css';
 
@@ -25,10 +27,17 @@ const AppContent: React.FC = () => {
   // - colors: object with all color values for current theme
   const { theme, toggleTheme, colors } = useTheme();
 
+  // Lifted state for tasks (added for delete functionality)
+  const [tasks, setTasks] = useState<Task[]>(sampleTasks);
+
+  // Delete handler (added for delete functionality)
+  const handleDeleteTask = (taskId: string) => {
+    setTasks(prev => prev.filter(t => t.id !== taskId));
+  };
+
   // ----------------------------------------
   // RENDER: App layout structure
   // ----------------------------------------
-  // PSEUDOCODE:
   //   RENDER root div with theme background
   //     RENDER header with:
   //       - Title and subtitle
@@ -66,9 +75,11 @@ const AppContent: React.FC = () => {
       </header>
 
       {/* MAIN: Task list component */}
-      {/* sampleTasks passed as prop - could be replaced with API data */}
+      {/* onDeleteTask prop added for delete functionality */}
       <main className="app-main">
-        <TaskList tasks={sampleTasks} />
+        <TaskList tasks={tasks} onDeleteTask={handleDeleteTask} />
+
+        
       </main>
 
       {/* FOOTER */}

@@ -10,6 +10,7 @@ import './TaskList.css';
 // All filtering is handled internally via useTaskFilter
 interface TaskListProps {
   tasks: Task[];  // Array of tasks to display and filter
+  onDeleteTask?: (taskId: string) => void;  // Added for delete functionality
 }
 
 
@@ -34,7 +35,7 @@ const priorityLabels: Record<FilterPriority, string> = {
 // Component Definition 
 // Container component that displays filtered tasks
 
-export const TaskList: React.FC<TaskListProps> = ({ tasks }) => {
+export const TaskList: React.FC<TaskListProps> = ({ tasks, onDeleteTask }) => {
   // Get theme colors for dynamic styling
   const { colors } = useTheme();
   
@@ -189,6 +190,7 @@ export const TaskList: React.FC<TaskListProps> = ({ tasks }) => {
                 status={task.status}
                 priority={task.priority}
                 dueDate={task.dueDate}
+                onDelete={() => onDeleteTask?.(task.id)}  // Added for delete functionality
               />
 
               

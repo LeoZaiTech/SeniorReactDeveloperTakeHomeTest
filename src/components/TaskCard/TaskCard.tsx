@@ -13,6 +13,7 @@ interface TaskCardProps {
   status: TaskStatus;         // Determines left border color + badge
   priority: TaskPriority;     // Determines priority badge color + icon
   dueDate?: string;           // Prop added for dueDate field
+  onDelete?: () => void;      // Added for delete functionality
 }
 
 
@@ -48,7 +49,8 @@ export const TaskCard: React.FC<TaskCardProps> = ({
   description,
   status,
   priority,
-  dueDate, // Added dueDate prop
+  dueDate,
+  onDelete,  // Added for delete functionality
 }) => {
 
   const { colors } = useTheme();
@@ -133,6 +135,16 @@ export const TaskCard: React.FC<TaskCardProps> = ({
         >
           {statusLabels[status]}
         </span>
+        {/* Delete button (added for delete functionality) */}
+        {onDelete && (
+          <button 
+            onClick={onDelete} 
+            className="delete-btn"
+            style={{ color: colors.text }}
+          >
+            Delete
+          </button>
+        )}
       </div>
     </article>
   );
