@@ -58,4 +58,11 @@ export const sampleTasks: Task[] = [
     status: 'todo',
     priority: 'medium',
   },
+  {
+    id: '9',
+    title: 'Blocked Task Example',
+    description: 'Waiting on external dependency',
+    status: 'blocked',  // Added for blocked status
+    priority: 'high',
+  },
 ];

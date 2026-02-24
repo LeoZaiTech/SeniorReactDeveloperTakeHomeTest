@@ -72,6 +72,23 @@ body {
   margin: 0 auto;
 }
 
+/* Add Task toggle button */
+.add-task-toggle {
+  padding: 12px 24px;
+  border: none;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  margin-bottom: 1rem;
+}
+
+.add-task-toggle:hover {
+  opacity: 0.9;
+  transform: translateY(-1px);
+}
+
 .app-footer {
   padding: 24px 32px;
   text-align: center;

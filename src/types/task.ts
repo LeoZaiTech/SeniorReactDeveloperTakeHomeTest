@@ -1,7 +1,7 @@
 
 // Union types for status and priority
 
-export type TaskStatus = 'todo' | 'in-progress' | 'done';
+export type TaskStatus = 'todo' | 'in-progress' | 'done' | 'blocked';  // Added 'blocked' status
 
 export type TaskPriority = 'low' | 'medium' | 'high';
 

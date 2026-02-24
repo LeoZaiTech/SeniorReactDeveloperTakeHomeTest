@@ -26,6 +26,7 @@ const statusLabels: Record<TaskStatus, string> = {
   'todo': 'To Do',
   'in-progress': 'In Progress',
   'done': 'Done',
+  'blocked': 'Blocked',  // Added for blocked status
 };
 
 
@@ -65,6 +66,8 @@ export const TaskCard: React.FC<TaskCardProps> = ({
         return colors.statusInProgress;
       case 'done':
         return colors.statusDone;
+      case 'blocked':  // Added for blocked status
+        return colors.statusBlocked;
     }
   };
 

@@ -6,7 +6,8 @@ import React, { useState } from 'react';
 // useTheme: Hook to access theme state and colors
 import { ThemeProvider, useTheme } from './context/ThemeContext';
 // TaskList: Main component that displays filtered tasks
-import { TaskList } from './components';
+// TaskForm: Form component for adding new tasks (added for Add Task functionality)
+import { TaskList, TaskForm } from './components';
 // Sample data for demonstration
 import { sampleTasks } from './data/sampleTasks';
 // Task type for state typing
@@ -29,10 +30,21 @@ const AppContent: React.FC = () => {
 
   // Lifted state for tasks (added for delete functionality)
   const [tasks, setTasks] = useState<Task[]>(sampleTasks);
+  
+  // Form visibility state (toggle Add Task form)
+  const [showForm, setShowForm] = useState(false);
 
   // Delete handler (added for delete functionality)
   const handleDeleteTask = (taskId: string) => {
     setTasks(prev => prev.filter(t => t.id !== taskId));
+  };
+
+  // Add task handler (added for Add Task functionality)
+  const handleAddTask = (newTask: Omit<Task, 'id'>) => {
+    setTasks(prev => [
+      ...prev,
+      { ...newTask, id: String(Date.now()) }
+    ]);
   };
 
   // ----------------------------------------
@@ -75,8 +87,26 @@ const AppContent: React.FC = () => {
       </header>
 
       {/* MAIN: Task list component */}
-      {/* onDeleteTask prop added for delete functionality */}
+      {/* TaskForm added for Add Task functionality */}
       <main className="app-main">
+        <button
+          className="add-task-toggle"
+          onClick={() => setShowForm(!showForm)}
+          style={{
+            backgroundColor: colors.statusInProgress,
+            color: '#ffffff',
+          }}
+        >
+          {showForm ? '✕ Cancel' : '+ Add New Task'}
+        </button>
+        
+        {showForm && (
+          <TaskForm onAddTask={(task) => {
+            handleAddTask(task);
+            setShowForm(false);  // Close form after adding
+          }} />
+        )}
+        
         <TaskList tasks={tasks} onDeleteTask={handleDeleteTask} />
 
         

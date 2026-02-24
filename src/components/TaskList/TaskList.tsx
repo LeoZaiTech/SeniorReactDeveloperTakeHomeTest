@@ -22,6 +22,7 @@ const statusLabels: Record<FilterStatus, string> = {
   'todo': 'To Do',
   'in-progress': 'In Progress',
   'done': 'Done',
+  'blocked': 'Blocked',  // Added for blocked status
 };
 
 const priorityLabels: Record<FilterPriority, string> = {

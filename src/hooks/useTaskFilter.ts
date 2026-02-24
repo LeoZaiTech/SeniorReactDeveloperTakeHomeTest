@@ -35,7 +35,7 @@ export const useTaskFilter = (tasks: Task[]): UseTaskFilterResult => {
   
   // Option Arrays:These arrays drive the filter button rendering in TaskList
   // Adding a new status here automatically creates a new button
-  const statusOptions: FilterStatus[] = ['all', 'todo', 'in-progress', 'done'];
+  const statusOptions: FilterStatus[] = ['all', 'todo', 'in-progress', 'done', 'blocked'];  // Added 'blocked'
   const priorityOptions: FilterPriority[] = ['all', 'low', 'medium', 'high'];
 
 

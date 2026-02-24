@@ -19,6 +19,7 @@ interface ThemeColors {
   statusTodo: string;
   statusInProgress: string;
   statusDone: string;
+  statusBlocked: string;  // Added for blocked status
   priorityLow: string;
   priorityMedium: string;
   priorityHigh: string;
@@ -33,6 +34,7 @@ const lightColors: ThemeColors = {
   statusTodo: '#6b7280',
   statusInProgress: '#3b82f6',
   statusDone: '#22c55e',
+  statusBlocked: '#9b59b6',  // Added for blocked status
   priorityLow: '#22c55e',
   priorityMedium: '#f59e0b',
   priorityHigh: '#ef4444',
@@ -47,6 +49,7 @@ const darkColors: ThemeColors = {
   statusTodo: '#9ca3af',
   statusInProgress: '#60a5fa',
   statusDone: '#4ade80',
+  statusBlocked: '#a855f7',  // Added for blocked status
   priorityLow: '#4ade80',
   priorityMedium: '#fbbf24',
   priorityHigh: '#f87171',
