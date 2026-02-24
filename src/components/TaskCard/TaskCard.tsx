@@ -1,14 +1,24 @@
 import React from 'react';
+// Types: TaskStatus and TaskPriority union types for type safety
 import { TaskStatus, TaskPriority } from '../../types/task';
+// Theme hook: Provides color values based on current theme (light/dark)
 import { useTheme } from '../../context/ThemeContext';
 import './TaskCard.css';
 
+// Props Interface: Defines the contract for what data TaskCard needs
+
 interface TaskCardProps {
-  title: string;
-  description: string;
-  status: TaskStatus;
-  priority: TaskPriority;
+  title: string;              // Task title displayed in header
+  description: string;        // Task description (fallback if empty)
+  status: TaskStatus;         // Determines left border color + badge
+  priority: TaskPriority;     // Determines priority badge color + icon
 }
+
+
+// Display Mappings:
+// Record<K, V> creates an object type where keys are K and values are V
+// TypeScript ensures every possible status/priority has a mapping
+
 
 const statusLabels: Record<TaskStatus, string> = {
   'todo': 'To Do',
@@ -16,17 +26,21 @@ const statusLabels: Record<TaskStatus, string> = {
   'done': 'Done',
 };
 
+
 const priorityLabels: Record<TaskPriority, string> = {
   'low': 'Low',
   'medium': 'Medium',
   'high': 'High',
 };
 
+
 const priorityIcons: Record<TaskPriority, string> = {
-  'low': '↓',
-  'medium': '→',
-  'high': '↑',
+  'low': '↓',      // Down arrow = low urgency
+  'medium': '→',   // Right arrow = normal
+  'high': '↑',     // Up arrow = high urgency
 };
+
+// Component Definition
 
 export const TaskCard: React.FC<TaskCardProps> = ({
   title,
@@ -34,7 +48,10 @@ export const TaskCard: React.FC<TaskCardProps> = ({
   status,
   priority,
 }) => {
+
   const { colors } = useTheme();
+
+  // Helper Functions
 
   const getStatusColor = (status: TaskStatus): string => {
     switch (status) {
@@ -47,6 +64,7 @@ export const TaskCard: React.FC<TaskCardProps> = ({
     }
   };
 
+
   const getPriorityColor = (priority: TaskPriority): string => {
     switch (priority) {
       case 'low':
@@ -58,20 +76,24 @@ export const TaskCard: React.FC<TaskCardProps> = ({
     }
   };
 
+  // Render Section
   return (
+    // Semantic <article> element - each task is a self-contained piece of content
     <article
       className="task-card"
       style={{
-        backgroundColor: colors.surface,
-        borderColor: colors.border,
-        borderLeftColor: getStatusColor(status),
+        backgroundColor: colors.surface,           // Theme-aware background
+        borderColor: colors.border,                // Theme-aware border
+        borderLeftColor: getStatusColor(status),   // Status indicator stripe
       }}
-      aria-label={`Task: ${title}`}
+      aria-label={`Task: ${title}`}                // Accessibility: screen reader label
     >
+      {/* HEADER: Title and Priority Badge */}
       <div className="task-card-header">
         <h3 className="task-card-title" style={{ color: colors.text }}>
           {title}
         </h3>
+        {/* Priority badge with color + semi-transparent background (20 = 12% opacity in hex) */}
         <span
           className="task-card-priority"
           style={{
@@ -85,10 +107,12 @@ export const TaskCard: React.FC<TaskCardProps> = ({
         </span>
       </div>
       
+      {/* BODY: Description with fallback for empty string */}
       <p className="task-card-description" style={{ color: colors.textSecondary }}>
         {description || 'No description provided'}
       </p>
       
+      {/* FOOTER: Status Badge */}
       <div className="task-card-footer">
         <span
           className="task-card-status"
@@ -105,4 +129,5 @@ export const TaskCard: React.FC<TaskCardProps> = ({
   );
 };
 
+// Default export for flexible importing
 export default TaskCard;

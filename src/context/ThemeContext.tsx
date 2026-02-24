@@ -8,6 +8,8 @@ interface ThemeContextValue {
   colors: ThemeColors;
 }
 
+//Theme Context Data Structure Interface
+
 interface ThemeColors {
   background: string;
   surface: string;
@@ -50,7 +52,12 @@ const darkColors: ThemeColors = {
   priorityHigh: '#f87171',
 };
 
+
 const ThemeContext = createContext<ThemeContextValue | undefined>(undefined);
+
+//Creates container that holds and distributes theme state, undefined until provider is used 
+
+
 
 interface ThemeProviderProps {
   children: ReactNode;
@@ -58,6 +65,13 @@ interface ThemeProviderProps {
 
 export const ThemeProvider: React.FC<ThemeProviderProps> = ({ children }) => {
   const [theme, setTheme] = useState<Theme>('light');
+
+
+  //ThemeProvider is a wrapper component that holds the theme state.//
+  //  I type it with React.FC and the props interface to ensure TypeScript knows //
+  // it accepts children. //
+  //  The useState hook initializes to light mode and is constrained //
+  // to my Theme type so it can only ever be 'light' or 'dark
 
   const toggleTheme = useCallback(() => {
     setTheme((prev) => (prev === 'light' ? 'dark' : 'light'));
@@ -72,10 +86,19 @@ export const ThemeProvider: React.FC<ThemeProviderProps> = ({ children }) => {
   );
 };
 
+// ============================================
+// CUSTOM HOOK: useTheme
+// ============================================
+
 export const useTheme = (): ThemeContextValue => {
   const context = useContext(ThemeContext);
+  
+  // Guard clause: Ensure we're inside a ThemeProvider
   if (!context) {
     throw new Error('useTheme must be used within a ThemeProvider');
   }
+  
+  // Safe to return - TypeScript now knows context is ThemeContextValue, 
+  // not undefined
   return context;
 };
