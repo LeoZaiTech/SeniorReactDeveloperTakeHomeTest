@@ -8,10 +8,10 @@ import './TaskCard.css';
 // Props Interface: Defines the contract for what data TaskCard needs
 
 interface TaskCardProps {
-  title: string;              // Task title displayed in header
-  description: string;        // Task description (fallback if empty)
-  status: TaskStatus;         // Determines left border color + badge
-  priority: TaskPriority;     // Determines priority badge color + icon
+  title: string;              
+  description: string;        
+  status: TaskStatus;       
+  priority: TaskPriority;     
   dueDate?: string;           // Prop added for dueDate field
   onDelete?: () => void;      // Added for delete functionality
 }

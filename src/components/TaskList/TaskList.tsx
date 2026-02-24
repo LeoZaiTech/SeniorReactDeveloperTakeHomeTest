@@ -41,22 +41,16 @@ export const TaskList: React.FC<TaskListProps> = ({ tasks, onDeleteTask }) => {
   const { colors } = useTheme();
   
 
-  // HOOK: Consumption Get all filter state and handlers 
-  // useTaskFilter encapsulates:
-  //   - Filter state (current selections)
-  //   - Filtered results (memoized)
-  //   - Setter functions (memoized)
-  //   - Options arrays (for rendering buttons)
   const { 
-    filteredTasks,       // Tasks that match current filters
-    filterStatus,        // Current status selection
-    setFilterStatus,     // Handler to change status filter
-    statusOptions,       // ['all', 'todo', 'in-progress', 'done']
-    filterPriority,      // Current priority selection
-    setFilterPriority,   // Handler to change priority filter
-    priorityOptions,     // ['all', 'low', 'medium', 'high']
-    searchQuery,         // Current search query (added for search feature)
-    setSearchQuery,      // Handler to change search query
+    filteredTasks,       
+    filterStatus,        
+    setFilterStatus,     
+    statusOptions,       
+    filterPriority,      
+    setFilterPriority,   
+    priorityOptions,     
+    searchQuery,         
+    setSearchQuery,      
   } = useTaskFilter(tasks);
 
   // ----------------------------------------
