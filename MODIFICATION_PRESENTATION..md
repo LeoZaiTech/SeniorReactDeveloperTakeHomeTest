@@ -146,12 +146,18 @@ const filteredTasks = useMemo(() => {
   return tasks.filter((task) => {
     const matchesStatus = filterStatus === 'all' || task.status === filterStatus;
     const matchesPriority = filterPriority === 'all' || task.priority === filterPriority;
+    // NEW: Add search check to existing filter logic
     const matchesSearch = searchQuery === '' || 
       task.title.toLowerCase().includes(searchQuery.toLowerCase());
+    // Task must pass ALL checks to be included
     return matchesStatus && matchesPriority && matchesSearch;
   });
-}, [tasks, filterStatus, filterPriority, searchQuery]);
+}, [tasks, filterStatus, filterPriority, searchQuery]);  // Add searchQuery to deps
 ```
+
+- **matchesSearch** — Empty query matches all; otherwise case-insensitive title match
+- **AND logic** — Task must pass status, priority, AND search checks
+- **Dependency array** — Added `searchQuery` so `useMemo` recalculates when search changes
 
 ---
 
@@ -398,25 +404,39 @@ const statusOptions: FilterStatus[] = [
 
 ---
 
-### Add Task — Step 1: Props Interface
+### Add Task — Step 1: Imports
 
 ```tsx
 // src/components/TaskForm/TaskForm.tsx
 import React, { useState } from 'react';
 import { Task, TaskStatus, TaskPriority } from '../../types/task';
 import { useTheme } from '../../context/ThemeContext';
+import './TaskForm.css';
+```
 
+- **useState** — Manages form field values as controlled inputs
+- **Task, TaskStatus, TaskPriority** — Types for form data and dropdowns
+- **useTheme** — Access theme colors for consistent styling
+
+---
+
+### Add Task — Step 2: Props Interface
+
+```tsx
+// src/components/TaskForm/TaskForm.tsx
 interface TaskFormProps {
   onAddTask: (task: Omit<Task, 'id'>) => void;
 }
 ```
 
-- **Omit<Task, 'id'>** — TypeScript utility removes `id` from Task type
-- Parent component will generate the ID
+- **Omit<Task, 'id'>** — TypeScript utility type that creates a new type with all `Task` properties *except* `id`
+- **Why?** — Form collects `title`, `description`, `status`, `priority` but shouldn't know about ID generation
+- **Separation of concerns** — Parent component (`App.tsx`) handles unique ID creation with `Date.now()`
+- **Type safety** — TypeScript enforces form returns exactly what's needed, nothing more
 
 ---
 
-### Add Task — Step 2: Component State
+### Add Task — Step 3: Component State
 
 ```tsx
 // src/components/TaskForm/TaskForm.tsx
@@ -435,7 +455,7 @@ export const TaskForm: React.FC<TaskFormProps> = ({ onAddTask }) => {
 
 ---
 
-### Add Task — Step 3: Submit Handler
+### Add Task — Step 4: Submit Handler
 
 ```tsx
 // src/components/TaskForm/TaskForm.tsx
@@ -459,7 +479,7 @@ const handleSubmit = (e: React.FormEvent) => {
 
 ---
 
-### Add Task — Step 4: Form JSX
+### Add Task — Step 5: Form JSX
 
 ```tsx
 // src/components/TaskForm/TaskForm.tsx
@@ -480,7 +500,7 @@ const handleSubmit = (e: React.FormEvent) => {
 
 ---
 
-### Add Task — Step 5: Select Dropdowns
+### Add Task — Step 6: Select Dropdowns
 
 ```tsx
 // src/components/TaskForm/TaskForm.tsx
@@ -505,7 +525,7 @@ const handleSubmit = (e: React.FormEvent) => {
 
 ---
 
-### Add Task — Step 6: Export Component
+### Add Task — Step 7: Export Component
 
 ```tsx
 // src/components/TaskForm/index.ts
@@ -517,7 +537,7 @@ export { TaskForm } from './TaskForm';  // Add to barrel export
 
 ---
 
-### Add Task — Step 7: App Handler
+### Add Task — Step 8: App Handler
 
 ```tsx
 // src/App.tsx
@@ -537,7 +557,7 @@ const handleAddTask = (newTask: Omit<Task, 'id'>) => {
 
 ---
 
-### Add Task — Step 8: Toggle State
+### Add Task — Step 9: Toggle State
 
 ```tsx
 // src/App.tsx
@@ -550,7 +570,7 @@ const [showForm, setShowForm] = useState(false);
 
 ---
 
-### Add Task — Step 9: Toggle Button JSX
+### Add Task — Step 10: Toggle Button JSX
 
 ```tsx
 // src/App.tsx
