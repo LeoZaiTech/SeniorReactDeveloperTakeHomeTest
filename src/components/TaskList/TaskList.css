@@ -9,6 +9,24 @@
   margin-bottom: 24px;
 }
 
+/* Search input styles (added for search feature) */
+.task-list-search {
+  margin-bottom: 0.5rem;
+}
+
+.search-input {
+  width: 100%;
+  padding: 0.75rem 1rem;
+  border: 1px solid;
+  border-radius: 8px;
+  font-size: 1rem;
+}
+
+.search-input:focus {
+  outline: none;
+  border-color: #3b82f6;
+}
+
 .filter-group {
   display: flex;
   align-items: center;

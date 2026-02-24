@@ -53,6 +53,8 @@ export const TaskList: React.FC<TaskListProps> = ({ tasks }) => {
     filterPriority,      // Current priority selection
     setFilterPriority,   // Handler to change priority filter
     priorityOptions,     // ['all', 'low', 'medium', 'high']
+    searchQuery,         // Current search query (added for search feature)
+    setSearchQuery,      // Handler to change search query
   } = useTaskFilter(tasks);
 
   // ----------------------------------------
@@ -63,6 +65,22 @@ export const TaskList: React.FC<TaskListProps> = ({ tasks }) => {
     <section className="task-list-container">
       {/* FILTERS SECTION */}
       <div className="filters-container">
+        
+        {/* Search Input (added for search feature) */}
+        <div className="task-list-search">
+          <input
+            type="text"
+            placeholder="Search tasks..."
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
+            className="search-input"
+            style={{
+              backgroundColor: colors.surface,
+              color: colors.text,
+              borderColor: colors.border,
+            }}
+          />
+        </div>
         
         {/* Status Filter Group */}
         <div className="filter-group">
@@ -172,6 +190,8 @@ export const TaskList: React.FC<TaskListProps> = ({ tasks }) => {
                 priority={task.priority}
                 dueDate={task.dueDate}
               />
+
+              
             </li>
           ))}
         </ul>

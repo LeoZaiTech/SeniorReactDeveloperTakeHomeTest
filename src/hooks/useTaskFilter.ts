@@ -5,13 +5,17 @@ import { Task, FilterStatus, FilterPriority } from '../types/task';
 // Return Type Interface:Defines the shape of what this hook returns to consumers
 // This is the "contract" - components know exactly what they'll get
 interface UseTaskFilterResult {
+
   filteredTasks: Task[];                        
   filterStatus: FilterStatus;                  
   setFilterStatus: (status: FilterStatus) => void; 
   statusOptions: FilterStatus[];              
   filterPriority: FilterPriority;              
   setFilterPriority: (priority: FilterPriority) => void;  
-  priorityOptions: FilterPriority[];           
+  priorityOptions: FilterPriority[];    
+  searchQuery: string;
+  setSearchQuery: (query: string) => void; //added to implement search feature
+       
 }
 
 // Hook Defintion:
@@ -21,11 +25,12 @@ export const useTaskFilter = (tasks: Task[]): UseTaskFilterResult => {
 
   // OUTPUT: Filtered tasks + filter state + setters + options
   
+//Destructure 
 
-  // STATE: Track current filter selections
-  // Both default to 'all' so all tasks show initially
   const [filterStatus, setFilterStatus] = useState<FilterStatus>('all');
   const [filterPriority, setFilterPriority] = useState<FilterPriority>('all');
+  const [searchQuery, setSearchQuery] = useState<string>(''); 
+  // Added to implement search feature
 
   
   // Option Arrays:These arrays drive the filter button rendering in TaskList
@@ -48,10 +53,14 @@ export const useTaskFilter = (tasks: Task[]): UseTaskFilterResult => {
       const matchesStatus = filterStatus === 'all' || task.status === filterStatus;
       // Check 2: Does task match priority filter? ('all' matches everything)
       const matchesPriority = filterPriority === 'all' || task.priority === filterPriority;
-      // Task must pass BOTH checks to be included
-      return matchesStatus && matchesPriority;
+      // Check 3: Does task title match search query? (added for search feature)
+      const matchesSearch = searchQuery === '' || 
+        task.title.toLowerCase().includes(searchQuery.toLowerCase());
+     // Check 4: Added to implement search feature   
+      // Task must pass ALL checks to be included
+      return matchesStatus && matchesPriority && matchesSearch;
     });
-  }, [tasks, filterStatus, filterPriority]);  // Re-run when any of these change
+  }, [tasks, filterStatus, filterPriority, searchQuery]);  // Added searchQuery to deps
 
 
   // Memoized Setters
@@ -77,5 +86,7 @@ export const useTaskFilter = (tasks: Task[]): UseTaskFilterResult => {
     filterPriority,                             // Current priority selection
     setFilterPriority: handleSetFilterPriority, // Handler to change priority
     priorityOptions,                            // Options for priority buttons
+    searchQuery,                                // Current search query (added for search feature)
+    setSearchQuery,                             // Handler to change search query
   };
 };
