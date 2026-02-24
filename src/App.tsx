@@ -1,16 +1,14 @@
-// ============================================
-// IMPORTS
-// ============================================
 import React from 'react';
+import { ThemeProvider, useTheme } from './context/ThemeContext';
 // ThemeProvider: Wraps app to provide theme context
 // useTheme: Hook to access theme state and colors
-import { ThemeProvider, useTheme } from './context/ThemeContext';
-// TaskList: Main component that displays filtered tasks
 import { TaskList } from './components';
-// Sample data for demonstration
+// TaskList: Main component that displays filtered tasks
 import { sampleTasks } from './data/sampleTasks';
-// Global app styles
+// Sample data for demonstration
 import './App.css';
+
+
 
 // ============================================
 // APP CONTENT COMPONENT
@@ -28,7 +26,6 @@ const AppContent: React.FC = () => {
   // ----------------------------------------
   // RENDER: App layout structure
   // ----------------------------------------
-  // PSEUDOCODE:
   //   RENDER root div with theme background
   //     RENDER header with:
   //       - Title and subtitle

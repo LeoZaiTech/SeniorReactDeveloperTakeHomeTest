@@ -1,17 +1,15 @@
 import React from 'react';
-// Types: TaskStatus and TaskPriority union types for type safety
 import { TaskStatus, TaskPriority } from '../../types/task';
-// Theme hook: Provides color values based on current theme (light/dark)
 import { useTheme } from '../../context/ThemeContext';
 import './TaskCard.css';
 
 // Props Interface: Defines the contract for what data TaskCard needs
 
 interface TaskCardProps {
-  title: string;              // Task title displayed in header
-  description: string;        // Task description (fallback if empty)
-  status: TaskStatus;         // Determines left border color + badge
-  priority: TaskPriority;     // Determines priority badge color + icon
+  title: string;              
+  description: string;       
+  status: TaskStatus;         
+  priority: TaskPriority;    
 }
 
 
@@ -35,9 +33,9 @@ const priorityLabels: Record<TaskPriority, string> = {
 
 
 const priorityIcons: Record<TaskPriority, string> = {
-  'low': '↓',      // Down arrow = low urgency
-  'medium': '→',   // Right arrow = normal
-  'high': '↑',     // Up arrow = high urgency
+  'low': '↓',     
+  'medium': '→',   
+  'high': '↑',     
 };
 
 // Component Definition

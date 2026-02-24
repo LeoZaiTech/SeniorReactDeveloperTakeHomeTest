@@ -55,7 +55,6 @@ const darkColors: ThemeColors = {
 
 const ThemeContext = createContext<ThemeContextValue | undefined>(undefined);
 
-//Creates container that holds and distributes theme state, undefined until provider is used 
 
 
 
@@ -86,9 +85,7 @@ export const ThemeProvider: React.FC<ThemeProviderProps> = ({ children }) => {
   );
 };
 
-// ============================================
-// CUSTOM HOOK: useTheme
-// ============================================
+//Use Theme Hook
 
 export const useTheme = (): ThemeContextValue => {
   const context = useContext(ThemeContext);

@@ -70,12 +70,12 @@ export const useTaskFilter = (tasks: Task[]): UseTaskFilterResult => {
   // Return exposes everything the component needs
  
   return {
-    filteredTasks,                              // The filtered task array
-    filterStatus,                               // Current status selection
-    setFilterStatus: handleSetFilterStatus,     // Handler to change status
-    statusOptions,                              // Options for status buttons
-    filterPriority,                             // Current priority selection
-    setFilterPriority: handleSetFilterPriority, // Handler to change priority
-    priorityOptions,                            // Options for priority buttons
+    filteredTasks,                              
+    filterStatus,                               
+    setFilterStatus: handleSetFilterStatus,     
+    statusOptions,                              
+    filterPriority,                             
+    setFilterPriority: handleSetFilterPriority, 
+    priorityOptions,                            
   };
 };
