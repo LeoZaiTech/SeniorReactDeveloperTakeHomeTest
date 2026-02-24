@@ -7,6 +7,7 @@ export const sampleTasks: Task[] = [
     description: 'Create a comprehensive design system with color palette, typography, and component library documentation.',
     status: 'done',
     priority: 'high',
+    dueDate: '2025-01-15',   //dueDate SampleData
   },
   {
     id: '2',

@@ -12,6 +12,7 @@ interface TaskCardProps {
   description: string;        // Task description (fallback if empty)
   status: TaskStatus;         // Determines left border color + badge
   priority: TaskPriority;     // Determines priority badge color + icon
+  dueDate?: string;           // Prop added for dueDate field
 }
 
 
@@ -47,6 +48,7 @@ export const TaskCard: React.FC<TaskCardProps> = ({
   description,
   status,
   priority,
+  dueDate, // Added dueDate prop
 }) => {
 
   const { colors } = useTheme();
@@ -76,7 +78,7 @@ export const TaskCard: React.FC<TaskCardProps> = ({
     }
   };
 
-  // Render Section
+  // Render
   return (
     // Semantic <article> element - each task is a self-contained piece of content
     <article
@@ -111,6 +113,13 @@ export const TaskCard: React.FC<TaskCardProps> = ({
       <p className="task-card-description" style={{ color: colors.textSecondary }}>
         {description || 'No description provided'}
       </p>
+      
+      {/* Due Date Display Logic */}
+      {dueDate && (
+        <p className="task-card-due-date" style={{ color: colors.textSecondary }}>
+          Due: {new Date(dueDate).toLocaleDateString()}
+        </p>
+      )}
       
       {/* FOOTER: Status Badge */}
       <div className="task-card-footer">

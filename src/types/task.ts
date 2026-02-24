@@ -7,15 +7,16 @@ export type TaskPriority = 'low' | 'medium' | 'high';
 
 
 
-// Task interface
+
 export interface Task {
   id: string;
   title: string;
   description: string;
   status: TaskStatus;
   priority: TaskPriority;
+  dueDate?: string; // String added to incorporate dueDate field
 }
-// Filter Types: union of 'all' with base types for filter state
+
 
 export type FilterStatus = 'all' | TaskStatus;
 

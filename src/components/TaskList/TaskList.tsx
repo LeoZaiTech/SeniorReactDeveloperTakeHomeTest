@@ -170,6 +170,7 @@ export const TaskList: React.FC<TaskListProps> = ({ tasks }) => {
                 description={task.description}
                 status={task.status}
                 priority={task.priority}
+                dueDate={task.dueDate}
               />
             </li>
           ))}
